@@ -21,7 +21,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		Map<String, Object> model = new HashMap<String, Object>();
-		model.put("title", "我是一个可爱的标题");
+		model.put("title", "鎴戞槸涓�涓彲鐖辩殑鏍囬");
 		JadeConfiguration config = new JadeConfiguration();
 		config.setMode(Mode.HTML);
 		config.setPrettyPrint(true);
