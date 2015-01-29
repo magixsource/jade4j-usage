@@ -21,19 +21,27 @@ public class Main {
 
 	public static void main(String[] args) {
 		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("title", "我是一个可爱的标题");
+		JadeConfiguration config = new JadeConfiguration();
+		config.setMode(Mode.HTML);
+		config.setPrettyPrint(true);
+		TemplateLoader loader = new FileTemplateLoader(
+				"./resources/templates/", "UTF-8");
+		config.setTemplateLoader(loader);
+		Long sum = 0L;
 		try {
-			long start = System.currentTimeMillis();
-			JadeConfiguration config = new JadeConfiguration();
-			config.setMode(Mode.HTML);
-			config.setPrettyPrint(true);
-			TemplateLoader loader = new FileTemplateLoader(
-					"./resources/templates/", "UTF-8");
-			config.setTemplateLoader(loader);
-			JadeTemplate template = config.getTemplate("index");
-			model.put("title", "我是一个可爱的标题");
-			String html = config.renderTemplate(template, model);
-			System.out.println(html);
-			System.out.println((System.currentTimeMillis() - start));
+			int length = 10000;
+			
+			for (int i = 0; i < length; i++) {
+				long start = System.currentTimeMillis();
+				JadeTemplate template = config.getTemplate("index");
+				config.renderTemplate(template, model);
+				long cost = System.currentTimeMillis() - start;
+				sum += cost;
+				System.out.println(cost);
+			}
+
+			System.out.println("AVG:" + (sum / length));
 		} catch (JadeCompilerException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
